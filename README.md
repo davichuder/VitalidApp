@@ -67,7 +67,7 @@ http://localhost:8181/
 
 [![Presentacion](https://img.youtube.com/vi/q-ep-VNLlgA/0.jpg)](https://youtu.be/q-ep-VNLlgA)
 
-## Authors
+## Autores
 
 - [Alexandro Moroz](https://github.com/AlexandroMoroz)
 - [Bruno Moyano](https://github.com/BEMP1)
@@ -75,4 +75,3 @@ http://localhost:8181/
 - [Ramiro Villagra](https://github.com/RamiroVillagra)
 - [Agustin Vazquez](https://github.com/avazquez99)
 - [David Rolón](https://github.com/davichuder)
-
