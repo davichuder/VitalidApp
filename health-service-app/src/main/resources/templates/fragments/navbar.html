@@ -1,0 +1,180 @@
+<header th:fragment="nav_bar" class="p-3 barraNav">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a th:href="@{/}" class="d-flex me-5 text-white text-decoration-none">
+                <img src="/img/app_logo.png" alt="..." height="40" />
+            </a>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li>
+                    <a th:href="@{/}" class="nav-link px-2 text-white btn btn-outline-primary">Inicio</a>
+                </li>
+                <li>
+                    <a th:href="@{/especialidades}"
+                        class="nav-link px-2 text-white btn btn-outline-primary">Especialidades</a>
+                </li>
+                <li>
+                    <a class="nav-link px-2 text-white btn btn-outline-primary" th:href="@{/consulta/paciente}"
+                    sec:authorize="hasAuthority('ROLE_PROFESIONAL')">Historial
+                        de pacientes</a>
+                </li>
+            </ul>
+
+            <div class="text-end d-flex">
+                <button class="btn btn-outline-light dropdown-toggle me-3" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" th:if="${session.usuariosession == null}">
+                    Ingresar
+                </button>
+                <ul class="dropdown-menu">
+                    <form th:action="@{/logincheck}" class="formulario p-3" method="POST">
+                        <div class="form-group my-3">
+                            <h3 class="card-title">Ingrese sus datos</h3>
+                        </div>
+
+                        <div class="form-group my-3">
+                            <input type="email" class="form-control" name="email" placeholder="EMAIL" required />
+                        </div>
+
+                        <div class="form-group my-3">
+                            <input type="password" class="form-control" name="password" placeholder="CONTRASEÑA"
+                                required />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control btn btn-outline-primary" type="submit" name="enviar"
+                                value="Iniciar Sesión" />
+                        </div>
+                    </form>
+                </ul>
+
+                <div class="dropdown me-3" th:if="${session.usuariosession != null}"
+                    sec:authorize="hasAuthority('ROLE_PACIENTE')">
+                    <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Perfil
+                    </button>
+                    <ul class="dropdown-menu">
+                        <div
+                            th:if="${#session.getAttribute('usuariosession') instanceof T(com.example.healthserviceapp.entity.Paciente)}">
+                            <li>
+                                <a class="dropdown-item linkP" th:href="@{/consulta/provincia}">Reserva un turno</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item linkP" th:href="@{/paciente/consulta}">Tus consultas</a>
+                            </li>
+                        </div>
+                        <div class="p-3 row"
+                            th:if="${!(#session.getAttribute('usuariosession') instanceof T(com.example.healthserviceapp.entity.Paciente))}">
+                            <li class="mb-2 text-center text-danger">
+                                Complete los datos básicos para mas opciones
+                            </li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-arrow-down flecha" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
+                            </svg>
+                        </div>
+                        <li>
+                            <a class="dropdown-item linkP" th:href="@{/perfil/datos}" type="button"
+                                aria-expanded="false">Modificar
+                                perfil</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div th:if="${session.usuariosession != null}" sec:authorize="hasAuthority('ROLE_PROFESIONAL')">
+                    <button class="btn btn-light dropdown-toggle me-3" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Perfil
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item linkP" th:href="@{/profesional/perfil}" type="button"
+                                aria-expanded="false">Modificar perfil</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div th:if="${session.usuariosession != null}" sec:authorize="hasAuthority('ROLE_ADMIN')">
+                    <a th:href="@{/obras_sociales}" class="btn btn-light me-3" type="button" aria-expanded="false">Obras
+                        Sociales</a>
+                    <a th:href="@{/admin/dashboard}" class="btn btn-light me-3" type="button"
+                        aria-expanded="false">Dashboard</a>
+                </div>
+
+                <div th:if="${session.usuariosession != null}">
+                    <button class="btn btn-secondary me-3" type="button" aria-expanded="false"
+                        onclick="location.href = '/logout';">
+                        Cerrar Sesión
+                    </button>
+                </div>
+
+                <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false" th:if="${session.usuariosession == null}">
+                    Regístrese
+                </button>
+                <ul class="dropdown-menu" th:if="${session.usuariosession == null}">
+                    <form class="formulario p-3" th:action="@{/registro}" method="POST">
+                        <div class="form-group my-3">
+                            <h3 class="card-title">Ingrese sus datos</h3>
+                        </div>
+
+                        <div class="form-group my-3">
+                            <input type="email" class="form-control" name="email" placeholder="EMAIL" required />
+                        </div>
+
+                        <div class="form-group my-3">
+                            <input type="password" class="form-control" name="password" placeholder="CONTRASEÑA"
+                                minlength="6" required />
+                        </div>
+
+                        <div class="form-group my-3">
+                            <input type="password" class="form-control" name="password2"
+                                placeholder="REPETIR CONTRASEÑA" minlength="6" required />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <input type="checkbox" name="terms" required /> Acepto los
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Términos y Condiciones</a>
+                        </div>
+
+                        <div class="form-group">
+                            <input class="form-control btn btn-outline-primary" type="submit" name="enviar"
+                                value="Registrarse" />
+                        </div>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="termsModalLabel">
+                        Términos y Condiciones
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h2>Seguridad</h2>
+                    <p>
+                        Sus Datos Personales solo podran ser accedidos por el administrador
+                        y profesionales con lo que usted haya o vaya a tener consulta, su
+                        contraseña no sera visible para nadie, estara encriptada en la base
+                        de datos.
+                    </p>
+
+                    <h2>Recuperar contraseña</h2>
+                    <p>
+                        Por ahora es imposible recuperar una contraseña asi que se le
+                        recomienda que la tenga anotada.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

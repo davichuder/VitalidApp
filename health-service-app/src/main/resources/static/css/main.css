@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
+*{
+  font-size: 16px;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.linkP:hover{
+    text-decoration: underline #0075ff 3px;;
+}
+
+.especialidades{
+  background-image: url('../img/profesionales.jpg');
+  background-size: cover;
+}
+
+.contenidoE {
+  position: relative;
+  z-index: 5;
+}
+
+.contenidoE::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    opacity: 0.8;
+}
+
+.texto-nosotros{
+  font-size: 1.25rem
+}
+
+.profesionales {
+  background: rgba(147, 206, 130, 0.8);
+  padding-top: 4.375rem;
+  padding-bottom: 4.375rem;
+}
+
+.barraNav{
+  background: rgba(5, 40, 137, 0.8);
+}
+
+.profesionales .container {
+  display: flex;
+  flex-direction: row;
+  flex-flow: wrap;
+  align-items: center;
+}
+
+.profesionales .container .col {
+  width: 50%;
+}
+
+.profesionales .container .col.izq {
+  box-shadow: 0px 9px 32px -1px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+
+.profesionales .container .col .titulo-seccion {
+  background-color: #fff;
+  padding: 3.125rem;
+  padding-right: 0;
+  border: 8px solid green;
+  border-style: double;
+  box-shadow: 0px 9px 32px -1px rgba(0, 0, 0, 0.5);
+}
+
+.profesionales .container .col .titulo-seccion h2 {
+  color: #ffffff;
+}
+.profesionales .container .col .titulo-seccion p {
+  color: #ffffff;
+  padding: 1.125rem;
+  font-size: 1.375rem;
+  line-height: 1.75;
+}
+.profesionales .container .col .titulo-seccion p:last-child {
+  padding-bottom: 0;
+}
+.profesionales .container .col .slider {
+  width: 400%;
+  display: flex;
+}
+.profesionales .container .col .slider .slide {
+  width: 100%;
+  min-height: 400px;
+  background-size: cover;
+  background-position: center;
+}
+.profesionales .container .col .slider .slide.foto1 {
+  background-image: url('../img/esp1.jpg');
+}
+.profesionales .container .col .slider .slide.foto2 {
+  background-image: url('../img/esp2.jpg');
+}
+.profesionales .container .col .slider .slide.foto3 {
+  background-image: url('../img/esp3.jpg');
+}
+.profesionales .container .col .slider .slide.foto4 {
+  background-image: url('../img/esp4.jpg');
+}
+.imagen-nosotros {
+  width: 650px;
+}
+
+.divisor{
+  color: green;
+  border-width: thick;
+}
+
+.custom-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 32px 8px 12px;
+  font-size: 14px;
+  background-color: #fff;
+  background-image: url('https://icons.getbootstrap.com/assets/icons/arrow-down.svg');
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  cursor: pointer;
+  color: #333;
+}
+
+.custom-select:focus {
+  outline: none;
+  border-color: #666;
+}
+
+.custom-select option {
+  color: #333;
+  background-color: #fff;
+}
+
+.error{
+    display: none;
+    color: #ff8c8c;
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .mensajeError{
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+.mensajeExito{
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+#previewImg {
+  max-width: 20%;
+  max-height: 20%;
+  box-shadow: 0px 9px 32px -1px rgba(0, 0, 0, 0.5);
+}
+
+.perfilP{
+    border: double 10px green;
+    box-shadow: 0px 9px 32px -1px rgba(0, 0, 0, 0.5);
+}
+
+.perfilPro{
+    border: #0075ff double 10px;
+    box-shadow: 0px 9px 32px -1px rgba(0, 0, 0, 0.5);
+}
+
+.flecha{
+    color: #0075ff;
+}
+

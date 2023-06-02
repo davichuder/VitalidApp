@@ -1,0 +1,29 @@
+.custom-select {
+    position: relative;
+    display: inline-block;
+    background-color: #f1f1f1;
+    border-radius: 4px;
+    padding: 10px;
+  }
+
+  .custom-select select {
+    display: none;
+  }
+
+  .custom-select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .custom-select select:focus ~ .select-label {
+    background-color: #e0e0e0;
+  }
+
+  .custom-select .select-label {
+    display: inline-block;
+    cursor: pointer;
+  }

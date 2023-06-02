@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/main.css">
+    <title>Perfil</title>
+    <script type="text/javascript" th:src="@{/js/preview_img.js}"></script>
+    <script type="text/javascript" th:src="@{/js/limite_tamanio.js}"></script>
+</head>
+
+
+<body>
+    <!-- NAVBAR -->
+    <header th:replace="fragments/navbar :: nav_bar"></header>
+
+    <!-- FORMULARIO -->
+    <div class="container">
+        <div class="rounded mt-5 perfilP">
+            <form class="formulario p-3" th:action="@{/paciente/registro}" method="POST" enctype="multipart/form-data">
+                <div class="border-right">
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-3">
+                        <label for="formFile" class="form-label"></label>
+                        <img id="previewImg" class="rounded mb-3" alt="Tu imagen" th:if="${tipo} == 'Usuario'"
+                            th:src="@{/img/defaultProfile.jpg}" />
+                        <img id="previewImg" class="rounded mb-3" alt="Tu imagen" th:if="${tipo} != 'Usuario'"
+                            th:src="@{/perfil/imagen}" />
+                        <span class="text-black-50 mb-3" th:text="${paciente.email}"
+                            th:if="${tipo} == 'Paciente'"></span>
+                        <span class="text-black-50 mb-3" th:text="${usuario.email}" th:if="${tipo} == 'Usuario'"></span>
+                        <input class="form-control" type="file" name="imagen" id="formFile" accept="image/*"
+                            maxlength="1048575 " onchange="validarTamanoArchivo(); actualizarVistaPrevia();">
+                        <p id="mensaje-error">Limite maximo = 1MB</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="p-3 py-3">
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Nombre:</label>
+                                <input type="text" class="form-control" name="nombre" placeholder="Alberto Juan"
+                                    required th:if="${tipo} == 'Paciente'" th:value="${paciente.nombre}">
+                                <input type="text" class="form-control" name="nombre" placeholder="Alberto Juan"
+                                    required th:if="${tipo} == 'Usuario'">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Apellido:</label>
+                                <input type="text" class="form-control" name="apellido" placeholder="Caseres" required
+                                    th:if="${tipo} == 'Paciente'" th:value="${paciente.apellido}">
+                                <input type="text" class="form-control" name="apellido" placeholder="Caseres" required
+                                    th:if="${tipo} == 'Usuario'">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Domicilio:</label>
+                                <input type="text" class="form-control" name="domicilio" placeholder="San Martin 1150"
+                                    required th:if="${tipo} == 'Paciente'" th:value="${paciente.domicilio}">
+                                <input type="text" class="form-control" name="domicilio" placeholder="San Martin 1150"
+                                    required th:if="${tipo} == 'Usuario'">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">DNI:</label><br>
+                                <input class="form-control" type="number" name="dni" placeholder="95478532" min="0"
+                                    required th:if="${tipo} == 'Paciente'" th:value="${paciente.dni}">
+                                <input class="form-control" type="number" name="dni" placeholder="95478532" min="0"
+                                    required th:if="${tipo} == 'Usuario'">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <label class="input-group-text" for="inputGroupSelect01">Sexo</label>
+                                    <select class="form-select" name="sexo" required th:if="${tipo} == 'Paciente'">
+                                        <option th:each="sexo : ${sexos}" th:value="${sexo}" th:text="${sexo}"
+                                            th:selected="${paciente.sexo == sexo}">
+                                    </select>
+                                    <select class="form-select" name="sexo" required th:if="${tipo} == 'Usuario'">
+                                        <option th:each="sexo : ${sexos}" th:value="${sexo}" th:text="${sexo}">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <label class="input-group-text" for="inputGroupSelect01">Fecha de nacimiento</label>
+                                    <input class="form-control" type="date" name="fechaNacimiento" id="fecha" required
+                                        th:if="${tipo} == 'Paciente'"
+                                        th:value="${#dates.format(paciente.fechaNacimiento, 'yyyy-MM-dd')}">
+                                    <input class="form-control" type="date" name="fechaNacimiento" id="fecha" required
+                                        th:if="${tipo} == 'Usuario'">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <label class="input-group-text" for="inputGroupSelect01">Obra Social</label>
+                                    <select class="form-select" name="obraSocialNombre" required
+                                        th:if="${tipo} == 'Paciente'">
+                                        <option th:each="ObraSocial : ${obrasSociales}" th:value="${ObraSocial}"
+                                            th:text="${ObraSocial}"
+                                            th:selected="${ObraSocial==paciente.obraSocial.nombre}">
+                                    </select>
+
+                                    <select class="form-select" name="obraSocialNombre" required
+                                        th:if="${tipo} == 'Usuario'">
+                                        <option th:each="ObraSocial : ${obrasSociales}" th:value="${ObraSocial}"
+                                            th:text="${ObraSocial}">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success mt-3 botones col-12">Enviar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"></div>
+    <script type="text/javascript" th:src="@{/js/today.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

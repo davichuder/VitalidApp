@@ -1,1 +1,2 @@
-CREATE database healthservicedb
+CREATE database healthservicedb;
+USE healthservicedb;
