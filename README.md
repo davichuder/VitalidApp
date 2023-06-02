@@ -63,9 +63,9 @@ Una vez hecho esto ingrese a la siguiente direccion, y disfrute de VitalidApp:
 ```bash
 http://localhost:8181/
 ```
-## Presentacion
+## Presentacion en Youtube
 
-[![Presentacion](README/index.png)](https://youtu.be/q-ep-VNLlgA)
+[![Presentacion](https://img.youtube.com/vi/q-ep-VNLlgA/0.jpg)](https://youtu.be/q-ep-VNLlgA)
 
 ## Authors
 
